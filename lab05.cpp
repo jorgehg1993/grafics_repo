@@ -29,7 +29,7 @@ void createScene()
 	GLfloat x = -5;
 	
 
-	for (int i=0; i < 20; i++){
+	/*for (int i=0; i < 20; i++){
 		sprintf_s(name, 100,"taza%i", i);
 		printf("%s creada\n", name);
 		scene->add((SceneObject *)new Teapot(0.2), name);
@@ -40,7 +40,7 @@ void createScene()
 		scene->objects[name]->setRandomScale(0.5, 1.2);
 		scene->objects[name]->setRandomScaleSpeed(-0.001, 0.001);
 		x += 1.0;
-	}
+	}*/
 
 	for (int i = 0; i < 10; i++){
 		sprintf_s(name, 100, "cubo%i", i);

@@ -8,5 +8,10 @@ Cube::Cube(GLfloat size) :SceneObject()
 void Cube::render()
 {
 	glColor3f(r, g, b);
-	glutSolidCube(size);
+	glutWireCube(size);
+}
+
+Cube::~Cube(){
+	deleteVectors();
+	printf("~Cube() \n");
 }

@@ -12,3 +12,8 @@ void Sphere::render()
 	glColor3f(r, g, b);
 	glutSolidSphere(radius, slices, stacks);
 }
+
+Sphere::~Sphere(){
+	deleteVectors();
+	printf("~Sphere() \n");
+}

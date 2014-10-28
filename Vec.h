@@ -10,6 +10,7 @@ public:
 	Vec(GLfloat x, GLfloat y, GLfloat z);
 	void add(Vec *other);
 	void setRandom(GLfloat min, GLfloat max);
+	void printVec();
 };
 
 

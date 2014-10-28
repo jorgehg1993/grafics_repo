@@ -21,3 +21,7 @@ void Vec::setRandom(GLfloat min, GLfloat max)
 	this->y = rval(min, max);
 	this->z = rval(min, max);
 }
+
+void Vec::printVec(){
+	printf("(%lf, %lf, %lf)", this->x, this->y, this->z);
+}

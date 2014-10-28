@@ -99,13 +99,18 @@ void Scene::keyboard(unsigned char key, int x, int y)
 			setCurrentCamera("top");
 			resize(windowWidth, windowHeight);
 			break;
+		case 'c':
+		case 'C':
+			setCurrentCamera("custom");
+			resize(windowWidth, windowHeight);
+			break;
 		case 'x':
 			currentCamera->setRotationSpeed(DELTA_ROT, 0.0, 0.0);
 			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
 			resize(windowWidth, windowHeight);
 			break;
 		case 'X':
-			currentCamera->setRotationSpeed(DELTA_ROT, 0.0, 0.0);
+			currentCamera->setRotationSpeed(-DELTA_ROT, 0.0, 0.0);
 			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
 			resize(windowWidth, windowHeight);
 			break;
@@ -143,36 +148,42 @@ void Scene::keyboardSpecial(int key, int x, int y)
 		case GLUT_KEY_UP:
 			currentCamera->setSpeed(0.0, DELTA_TRAN, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
 		case GLUT_KEY_DOWN:
 			currentCamera->setSpeed(0.0, -DELTA_TRAN, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
 		case GLUT_KEY_RIGHT:
 			currentCamera->setSpeed(DELTA_TRAN, 0.0, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
 		case GLUT_KEY_LEFT:
 			currentCamera->setSpeed(-DELTA_TRAN, 0.0, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
 		case GLUT_KEY_PAGE_UP:
 			currentCamera->setSpeed(0.0, 0.0, DELTA_TRAN);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
 		case GLUT_KEY_PAGE_DOWN:
 			currentCamera->setSpeed(0.0, 0.0, -DELTA_TRAN);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 		default:
@@ -183,6 +194,22 @@ void Scene::keyboardSpecial(int key, int x, int y)
 
 void Scene::end()
 {
+	map<string, SceneObject *>::const_iterator iter; 
+	for (iter = objects.begin(); iter != objects.end(); ++iter){
+		SceneObject *o = (SceneObject *)iter->second; 
+		printf("object:%s cleanup:", ((string)iter->first).c_str()); 
+		delete o; 
+	}
+
+	map<string, Camera *>::const_iterator itercam; 
+	for (itercam = cameras.begin(); itercam != cameras.end(); ++itercam){
+		SceneObject *c = (SceneObject *)itercam->second; 
+		printf("camera:%s cleanup:", ((string)itercam->first).c_str()); 
+		delete c; 
+	}
+
+	cameras.clear(); 
+	objects.clear(); 
 	exit(0);
 }
 

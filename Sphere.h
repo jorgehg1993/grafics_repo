@@ -6,6 +6,7 @@ class Sphere : SceneObject
 {
 public:
 	Sphere(GLfloat radius, GLfloat slices, GLfloat stacks);
+	~Sphere();
 	void render();
 
 private:

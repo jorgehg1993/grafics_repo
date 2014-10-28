@@ -70,3 +70,8 @@ Vec* Camera::getSpeed(){
 Vec* Camera::getRotationSpeed(){
 	return rotationSpeed;
 }
+
+Camera::~Camera(){
+	deleteVectors();
+	printf("~Camera() \n");
+}

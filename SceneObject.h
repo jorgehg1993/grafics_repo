@@ -24,6 +24,8 @@ public:
 	
 	void update();
 	virtual void render() {};
+	virtual ~SceneObject() {};
+	void deleteVectors();
 
 protected:
 	Vec *position;

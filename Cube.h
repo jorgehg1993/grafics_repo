@@ -6,6 +6,7 @@ class Cube : SceneObject
 {
 	public: 
 		Cube(GLfloat size);
+		~Cube();
 		void render();
 	private:
 		GLfloat size;

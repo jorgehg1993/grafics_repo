@@ -7,6 +7,7 @@
 class Camera : SceneObject{
 	public:
 		Camera(bool perspective, GLfloat fovy, GLfloat nearPlane, GLfloat farPlane);
+		~Camera();
 		void setPosition(GLfloat x, GLfloat y, GLfloat z);
 		void setSpeed(GLfloat x, GLfloat y, GLfloat z);
 		void setRotation(GLfloat x, GLfloat y, GLfloat z);

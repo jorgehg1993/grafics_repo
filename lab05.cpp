@@ -5,6 +5,7 @@
 #include "Teapot.h"
 #include "Cube.h"
 #include "Sphere.h"
+#include "Model3D.h"
 
 Scene *scene = new Scene();
 
@@ -25,11 +26,11 @@ void keyboard(unsigned char key, int x, int y)
 
 void createScene()
 {
-	char name[100];
+	/*char name[100];
 	GLfloat x = -5;
 	
 
-	/*for (int i=0; i < 20; i++){
+	for (int i=0; i < 20; i++){
 		sprintf_s(name, 100,"taza%i", i);
 		printf("%s creada\n", name);
 		scene->add((SceneObject *)new Teapot(0.2), name);
@@ -40,7 +41,7 @@ void createScene()
 		scene->objects[name]->setRandomScale(0.5, 1.2);
 		scene->objects[name]->setRandomScaleSpeed(-0.001, 0.001);
 		x += 1.0;
-	}*/
+	}
 
 	for (int i = 0; i < 10; i++){
 		sprintf_s(name, 100, "cubo%i", i);
@@ -70,8 +71,33 @@ void createScene()
 		x += 1.0;
 	}
 
-	scene->add((SceneObject *)new Teapot(1.0), "taza_origen");
+	scene->add((SceneObject *)new Teapot(1.0), "taza_origen");*/
 
+	scene->add((SceneObject *) new Model3D("sword"), "sword");
+	scene->objects["sword"]->setRotation(0.0, -90.0, 0.0);
+	scene->objects["sword"]->setScale(1.8, 1.8, 1.8);
+	scene->objects["sword"]->setPosition(0.0, 1.0, 0.0);
+	scene->objects["sword"]->setRotationSpeed(0.0, 3.0, 0.0);
+
+	scene->add((SceneObject *) new Model3D("throne"), "throne");
+	scene->objects["throne"]->setPosition(0.0, 1.0, -1.5);
+
+
+	scene->add((SceneObject *) new Model3D("roman_helmet"), "helmet");
+	scene->objects["helmet"]->setPosition(1.0, 1.2, 0.0);
+	scene->objects["helmet"]->setRotation(0.0, 180.0, 0.0);
+	scene->objects["helmet"]->setScale(0.5, 0.5, 0.5);
+	scene->objects["helmet"]->setRotationSpeed(0.0, 3.0, 0.0);
+
+
+	scene->add((SceneObject *) new Model3D("shield"), "shield");
+	scene->objects["shield"]->setPosition(-1.0, 1.0, 0.0);
+	scene->objects["shield"]->setScale(0.5, 0.5, 0.5);
+	scene->objects["shield"]->setRotationSpeed(0.0, 3.0, 0.0);
+
+	//scene->objects["castillo"]->setScale(.0, 2.0, 2.0);
+	scene->add((SceneObject *) new Cube(4.0), "cubo"); 
+	scene->objects["cubo"]->setPosition(0.0, 2.0, 0.0);
 }
 
 void idle()
@@ -93,6 +119,10 @@ void createCameras(){
 	scene->addCamera("top", false, 5.0, 1.0, 100.0);
 	scene->cameras["top"]->setRotation(90.0, 0.0, 0.0);
 	scene->cameras["top"]->setPosition(0.0, 0.0, -5.0);
+
+	scene->addCamera("custom", true, 45, 1.0, 1000.0);
+	scene->cameras["custom"]->setPosition(0.0, -1.2, -2.6);
+	scene->cameras["custom"]->setRotation(0.0, 180.0, -2.6);
 
 	scene->setCurrentCamera("perspective");
 }

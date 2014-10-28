@@ -6,6 +6,7 @@ class Teapot : SceneObject
 {
     public:
        Teapot(GLfloat size);
+	   ~Teapot();
        void render();
     
     private:

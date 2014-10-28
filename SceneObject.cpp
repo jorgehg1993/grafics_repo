@@ -100,6 +100,15 @@ void SceneObject::setRandomRotationSpeed(GLfloat min, GLfloat max){
 	rotationSpeed->setRandom(min, max);
 }
 
+void SceneObject::deleteVectors(){
+	delete position; 
+	delete speed; 
+	delete rotation; 
+	delete rotationSpeed; 
+	delete scale; 
+	delete scaleSpeed; 
+	printf("deleteVectors()\n"); 
+}
 
 
 

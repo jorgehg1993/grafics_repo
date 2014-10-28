@@ -10,3 +10,8 @@ void Teapot::render()
     glColor3f(r,g,b);
     glutSolidTeapot(size);
 }
+
+Teapot::~Teapot(){
+	deleteVectors();
+	printf("~Teapot() \n");
+}

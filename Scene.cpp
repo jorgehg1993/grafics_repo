@@ -1,5 +1,9 @@
 #include "Scene.h"
 
+Scene::Scene(){
+	lightManager = new LightManager();
+}
+
 void Scene::begin(int left, int top, int width, int height,
 	string title, GLfloat r, GLfloat g, GLfloat b)
 {
@@ -16,28 +20,11 @@ void Scene::begin(int left, int top, int width, int height,
 	currentCamera = cameras["default"];
 }
 
-void Scene::lighting() {
-
-	GLfloat specular[] = { 0.3, 0.3, 0.3, 1.0 };
-	GLfloat position[] = { 0.0, 3.0, 1.0, 0.0 };
-	GLfloat position2[] = { 1.0, -2.0, 1.0, 0.0 };
-	glShadeModel(GL_SMOOTH);
-	glEnable(GL_COLOR_MATERIAL);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT1, GL_POSITION, position2);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-}
 
 void Scene::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	lightManager->lightScene();
 	glLoadIdentity();
 	map<string, SceneObject *>::const_iterator iter;
 	for (iter = objects.begin(); iter != objects.end(); ++iter)
@@ -245,3 +232,6 @@ void Scene::setFrameRate(int frameRate)
 	this->frameTime = 1000 / frameRate;
 }
 
+LightManager* Scene::getLightManager(){
+	return lightManager;
+}

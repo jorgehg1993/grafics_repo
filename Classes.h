@@ -26,7 +26,12 @@ class Vec;
 #define DELTA_TRAN 0.2
 #define DELTA_ROT 3.0
 #define MAXFILENAME 50
+#define MAX_LIGHTS 8
+#define MARKER_RADIUS 0.15
+#define MARKER_SECTIONS 7
+#define SPECULAR_SHININESS 64.0
 
+enum LightSource {DIRECTIONAL, POINT, SPOT};
 
 
 

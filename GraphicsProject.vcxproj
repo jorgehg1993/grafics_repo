@@ -65,28 +65,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlphaQuad.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Classes.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="glm.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightManager.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Teapot.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vec.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlphaQuad.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="glm.cpp" />
-    <ClCompile Include="lab05.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Model3D.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Teapot.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

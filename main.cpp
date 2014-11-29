@@ -1,4 +1,4 @@
-// Autor: Jorge Hernandez Gomez
+// Equipo Medieval Age
 
 #include "Classes.h"
 #include "Scene.h"
@@ -26,54 +26,7 @@ void keyboard(unsigned char key, int x, int y)
 
 void createScene()
 {
-	/*char name[100];
-	GLfloat x = -5;
-	
-
-	for (int i=0; i < 20; i++){
-		sprintf_s(name, 100,"taza%i", i);
-		printf("%s creada\n", name);
-		scene->add((SceneObject *)new Teapot(0.2), name);
-		scene->objects[name]->setRandomColor();
-		scene->objects[name]->setRandomSpeed(-0.01, 0.01);
-		scene->objects[name]->setRandomRotation(-10.0, 10.0);
-		scene->objects[name]->setRandomRotationSpeed(-1.0, 1.0);
-		scene->objects[name]->setRandomScale(0.5, 1.2);
-		scene->objects[name]->setRandomScaleSpeed(-0.001, 0.001);
-		x += 1.0;
-	}
-
-	for (int i = 0; i < 10; i++){
-		sprintf_s(name, 100, "cubo%i", i);
-		printf("%s creada\n", name);
-		scene->add((SceneObject *)new Cube(0.2), name);
-		scene->objects[name]->setRandomColor();
-		scene->objects[name]->setRandomPosition(-1.5, 1.5);
-		scene->objects[name]->setRandomSpeed(-0.001, 0.001);
-		scene->objects[name]->setRandomRotation(-10.0, 10.0);
-		scene->objects[name]->setRandomRotationSpeed(-0.01, 0.01);
-		scene->objects[name]->setRandomScale(0.5, 1.5);
-		scene->objects[name]->setRandomScaleSpeed(-0.0001, 0.0001);
-		x += 1.0;
-	}
-
-	for (int i = 0; i < 20; i++){
-		sprintf_s(name, 100, "esfera%i", i);
-		printf("%s creada\n", name);
-		scene->add((SceneObject *)new Sphere(0.2, 20, 20), name);
-		scene->objects[name]->setRandomColor();
-		scene->objects[name]->setRandomPosition(-2.5, 2.5);
-		scene->objects[name]->setSpeed(0.005 * pow(-1, i), 0, 0);
-		scene->objects[name]->setRandomRotation(-10.0, 10.0);
-		scene->objects[name]->setRandomRotationSpeed(-1.0, 1.0);
-		scene->objects[name]->setRandomScale(0.5, 1.5);
-		scene->objects[name]->setRandomScaleSpeed(-0.001, 0.001);
-		x += 1.0;
-	}
-
-	scene->add((SceneObject *)new Teapot(1.0), "taza_origen");*/
-
-	scene->add((SceneObject *) new Model3D("sword"), "sword");
+	/*scene->add((SceneObject *) new Model3D("sword"), "sword");
 	scene->objects["sword"]->setRotation(0.0, -90.0, 0.0);
 	scene->objects["sword"]->setScale(1.8, 1.8, 1.8);
 	scene->objects["sword"]->setPosition(0.0, 1.0, 0.0);
@@ -93,11 +46,15 @@ void createScene()
 	scene->add((SceneObject *) new Model3D("shield"), "shield");
 	scene->objects["shield"]->setPosition(-1.0, 1.0, 0.0);
 	scene->objects["shield"]->setScale(0.5, 0.5, 0.5);
-	scene->objects["shield"]->setRotationSpeed(0.0, 3.0, 0.0);
+	scene->objects["shield"]->setRotationSpeed(0.0, 3.0, 0.0);*/
 
-	//scene->objects["castillo"]->setScale(.0, 2.0, 2.0);
-	scene->add((SceneObject *) new Cube(4.0), "cubo"); 
-	scene->objects["cubo"]->setPosition(0.0, 2.0, 0.0);
+	scene->add((SceneObject *) new Model3D("castle"), "castle");
+	scene->objects["castle"]->setScale(20.0, 20.0, 20.0);
+	scene->objects["castle"]->setRotation(0.0, -90.0, 2.0);
+
+	scene->add((SceneObject *) new Teapot(2.0), "taza");
+	scene->objects["taza"]->setPosition(0.0, 4.0, 0.0);
+
 }
 
 void idle()
@@ -105,9 +62,21 @@ void idle()
 	scene->idle();
 }
 
+void createLights()
+{
+	LightManager *l = scene->getLightManager();
+	//light 0
+	l->setDirectional(0, 1.8, 6.9, 16.99);
+	l->setDiffuse(0, 1.0, 0.84, 0.0);
+	l->setAmbient(0, 0.3, 0.3, 0.3);
+	//l->setSpecular(0, 1.0, 0.84, 0.0, 10.0);
+	//Turn markers on
+	l->setMarkers(true);
+}
+
 void createCameras(){
 	scene->addCamera("perspective", true, 45, 1.0, 1000.0);
-	scene->cameras["perspective"]->setPosition(0.0, 0.0, -10.0);
+	scene->cameras["perspective"]->setPosition(-2.0, 0.0, -7.0);
 
 	scene->addCamera("front", false, 5.0, 1.0, 100.0);
 	scene->cameras["front"]->setPosition(0.0, 0.0, -5.0);
@@ -122,7 +91,7 @@ void createCameras(){
 
 	scene->addCamera("custom", true, 45, 1.0, 1000.0);
 	scene->cameras["custom"]->setPosition(0.0, -1.2, -2.6);
-	scene->cameras["custom"]->setRotation(0.0, 180.0, -2.6);
+	scene->cameras["custom"]->setRotation(0.0, 180.0, 0.0);
 
 	scene->setCurrentCamera("perspective");
 }
@@ -135,7 +104,7 @@ int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	scene->begin(0, 0, 800, 600, "OO Premiere", 0, 0, 0);
-	scene->lighting();
+	createLights();
 	createScene();
 	createCameras();
 	glutDisplayFunc(render);

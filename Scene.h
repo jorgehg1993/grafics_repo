@@ -2,6 +2,7 @@
 #include "Classes.h"
 #include "SceneObject.h"
 #include "Camera.h"
+#include "LightManager.h"
 
 using namespace std;
 
@@ -15,12 +16,14 @@ private:
 	GLint frameTime;
 	GLint currentTime;
 	Camera *currentCamera;
+	LightManager *lightManager;
 
 public:
+	Scene();
+	LightManager *getLightManager();
 	map <string, SceneObject *> objects;
 	void begin(int x, int y, int width, int height,
 		string title, GLfloat r, GLfloat g, GLfloat b);
-	void lighting();
 	void render();
 	void resize(int currentWidth, int currentHeight);
 	void keyboard(unsigned char key, int x, int y);

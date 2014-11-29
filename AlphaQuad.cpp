@@ -5,7 +5,7 @@ AlphaQuad::AlphaQuad(int textureId,GLenum expansionMode,GLfloat width,GLfloat he
                      GLfloat alpha,GLfloat alphaSpeed,GLfloat positionS,GLfloat positionT,
                      GLfloat speedS,GLfloat speedT)
 {
-    this->textureId=textureId;
+    this->textureID=textureId;
     this->expansionMode=expansionMode;
     this->alpha=alpha;
     this->alphaSpeed=alphaSpeed;

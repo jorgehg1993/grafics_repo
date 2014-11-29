@@ -18,7 +18,7 @@ class Scene;
 class SceneObject;
 class Teapot;
 class Vec;
-
+class Camera;
 #define ESC 27
 
 #define RFACTOR 1000
@@ -33,5 +33,7 @@ class Vec;
 
 enum LightSource {DIRECTIONAL, POINT, SPOT};
 
+#define INVALID_TEXTURE -1 
+#define DEFAULT_MODE 0
 
 

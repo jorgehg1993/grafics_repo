@@ -52,8 +52,8 @@ void createScene()
 	scene->objects["castle"]->setScale(20.0, 20.0, 20.0);
 	scene->objects["castle"]->setRotation(0.0, -90.0, 2.0);
 
-	scene->add((SceneObject *) new Teapot(2.0), "taza");
-	scene->objects["taza"]->setPosition(0.0, 4.0, 0.0);
+	scene->add((SceneObject *) new Teapot(1.0), "taza");
+	scene->objects["taza"]->setPosition(30.0, 0.0, -7.0);
 
 }
 
@@ -78,6 +78,7 @@ void createCameras(){
 	scene->addCamera("perspective", true, 45, 1.0, 1000.0);
 	scene->cameras["perspective"]->setPosition(-2.0, 0.0, -7.0);
 
+
 	scene->addCamera("front", false, 5.0, 1.0, 100.0);
 	scene->cameras["front"]->setPosition(0.0, 0.0, -5.0);
 
@@ -92,6 +93,10 @@ void createCameras(){
 	scene->addCamera("custom", true, 45, 1.0, 1000.0);
 	scene->cameras["custom"]->setPosition(0.0, -1.2, -2.6);
 	scene->cameras["custom"]->setRotation(0.0, 180.0, 0.0);
+
+	scene->addCamera("taza_cam", true, 45.0, 1.0, 1000.0);
+	scene->cameras["taza_cam"]->setPosition(-24.0, 0.0, 0.0);
+	scene->cameras["taza_cam"]->setRotation(0.0, 45.0, 0.0);
 
 	scene->setCurrentCamera("perspective");
 }

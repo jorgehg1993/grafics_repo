@@ -1,5 +1,6 @@
 #include "Scene.h"
 
+
 Scene::Scene(){
 	lightManager = new LightManager();
 }
@@ -55,16 +56,21 @@ void Scene::resize(int currentWidth, int currentHeight)
 	}
 	Vec *position = currentCamera->getPosition();
 	Vec *rotation = currentCamera->getRotation();
-	glTranslatef(position->x, position->y, position->z);
 	glRotatef(rotation->x, 1.0, 0.0, 0.0);
 	glRotatef(rotation->y, 0.0, 1.0, 0.0);
 	glRotatef(rotation->z, 0.0, 0.0, 1.0);
+	glTranslatef(position->x, position->y, position->z);
 	glViewport(0, 0, windowWidth, windowHeight);
 	glMatrixMode(GL_MODELVIEW);
 }
 
 void Scene::keyboard(unsigned char key, int x, int y)
 {
+	int yrotation = currentCamera->getRotation()->y;
+	yrotation = yrotation % 360;
+	printf("%i", yrotation);
+
+	currentCamera->getRotation()->printVec();
 	switch (key) {
 		case 'p':
 		case 'P':
@@ -91,6 +97,11 @@ void Scene::keyboard(unsigned char key, int x, int y)
 			setCurrentCamera("custom");
 			resize(windowWidth, windowHeight);
 			break;
+		case 'q':
+		case 'Q':
+			setCurrentCamera("taza_cam");
+			resize(windowWidth, windowHeight);
+			break;
 		case 'x':
 			currentCamera->setRotationSpeed(DELTA_ROT, 0.0, 0.0);
 			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
@@ -104,7 +115,7 @@ void Scene::keyboard(unsigned char key, int x, int y)
 		case 'y':
 			currentCamera->setRotationSpeed(0.0, DELTA_ROT, 0.0);
 			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
-			resize(windowWidth, windowHeight);
+			resize(windowWidth, windowHeight);	
 			break;
 		case 'Y':
 			currentCamera->setRotationSpeed(0.0, -DELTA_ROT, 0.0);
@@ -114,7 +125,7 @@ void Scene::keyboard(unsigned char key, int x, int y)
 		case 'z':
 			currentCamera->setRotationSpeed(0.0, 0.0, DELTA_ROT);
 			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
-			resize(windowWidth, windowHeight);
+			resize(windowWidth, windowHeight);			
 			break;
 		case 'Z':
 			currentCamera->setRotationSpeed(0.0, 0.0, -DELTA_ROT);
@@ -131,6 +142,12 @@ void Scene::keyboard(unsigned char key, int x, int y)
 
 void Scene::keyboardSpecial(int key, int x, int y)
 {
+	int yrotation = currentCamera->getRotation()->y;
+	yrotation = yrotation % 360;
+	printf("%d", yrotation);
+
+	currentCamera->getRotation()->printVec();
+
 	switch (key){
 		case GLUT_KEY_UP:
 			currentCamera->setSpeed(0.0, DELTA_TRAN, 0.0);
@@ -147,30 +164,44 @@ void Scene::keyboardSpecial(int key, int x, int y)
 			break;
 
 		case GLUT_KEY_RIGHT:
-			currentCamera->setSpeed(DELTA_TRAN, 0.0, 0.0);
-			currentCamera->getPosition()->add(currentCamera->getSpeed());
-			currentCamera->getPosition()->printVec();
-			resize(windowWidth, windowHeight);
-			break;
-
-		case GLUT_KEY_LEFT:
 			currentCamera->setSpeed(-DELTA_TRAN, 0.0, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
 			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
-		case GLUT_KEY_PAGE_UP:
-			currentCamera->setSpeed(0.0, 0.0, DELTA_TRAN);
+		case GLUT_KEY_LEFT:
+			currentCamera->setSpeed(DELTA_TRAN, 0.0, 0.0);
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
 			currentCamera->getPosition()->printVec();
 			resize(windowWidth, windowHeight);
 			break;
 
-		case GLUT_KEY_PAGE_DOWN:
-			currentCamera->setSpeed(0.0, 0.0, -DELTA_TRAN);
+		case GLUT_KEY_PAGE_UP:			
+			if (yrotation > 0.0  && yrotation <= 180 || yrotation < -180){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, DELTA_TRAN);
+			} else if (yrotation == 0.0){
+				currentCamera->setSpeed(0.0, 0.0, DELTA_TRAN);
+			} else if (yrotation < 0.0 || yrotation > 180 ){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, DELTA_TRAN);
+			}
+
 			currentCamera->getPosition()->add(currentCamera->getSpeed());
-			currentCamera->getPosition()->printVec();
+			resize(windowWidth, windowHeight);
+			break;
+
+		case GLUT_KEY_PAGE_DOWN:
+
+			if (yrotation > 0.0  && yrotation <= 180 || yrotation < -180){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+			else if (yrotation == 0.0){
+				currentCamera->setSpeed(0.0, 0.0, -DELTA_TRAN);
+			}
+			else if (yrotation < 0.0 || yrotation > 180){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+			currentCamera->getPosition()->add(currentCamera->getSpeed());
 			resize(windowWidth, windowHeight);
 			break;
 		default:

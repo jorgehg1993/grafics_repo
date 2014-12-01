@@ -55,6 +55,12 @@ void createScene()
 	scene->add((SceneObject *) new Teapot(1.0), "taza");
 	scene->objects["taza"]->setPosition(30.0, 0.0, -7.0);
 
+	scene->add((SceneObject *) new Teapot(1.0), "taza_uno");
+	scene->objects["taza_uno"]->setPosition(-30.0, 0.0, 5.0);
+
+	scene->add((SceneObject *) new Teapot(1.0), "taza_dos");
+	scene->objects["taza_dos"]->setPosition(30.0, 0.0, 25.0);
+
 }
 
 void idle()

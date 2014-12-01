@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+//angle of rotation
+float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle = 0.0;
 
 Scene::Scene(){
 	lightManager = new LightManager();
@@ -72,6 +74,69 @@ void Scene::keyboard(unsigned char key, int x, int y)
 
 	currentCamera->getRotation()->printVec();
 	switch (key) {
+		case 'w':
+		case 'W':
+			
+			//Diagonal arriba derecha
+			if ((yrotation > 0.0  && yrotation <= 90) || (yrotation < -270)){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, DELTA_TRAN);
+			}
+			//Diagonal abajo derecha
+			else if ((yrotation > 90 && yrotation <= 180) || (yrotation < -180 && yrotation >= -270)){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+			//Diagonal abajo izquierda
+			else if (yrotation > 180 && yrotation <= 270 || (yrotation < -90 && yrotation >= -180)){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+			else if (yrotation == 0.0){
+				currentCamera->setSpeed(0.0, 0.0, DELTA_TRAN);
+			}
+			//Diagonal arriba izquierda
+			else if (yrotation > 270 || (yrotation < 0 && yrotation >= -90)){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, DELTA_TRAN);
+			}
+
+			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			resize(windowWidth, windowHeight);
+
+			resize(windowWidth, windowHeight);
+
+			break;
+		case 's':
+		case 'S':
+			if ((yrotation > 0.0  && yrotation <= 90) || (yrotation < -270)){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+			else if ((yrotation > 90 && yrotation <= 180) || (yrotation < -180 && yrotation >= -270)){
+				currentCamera->setSpeed(DELTA_TRAN, 0.0, DELTA_TRAN);
+			}
+			else if (yrotation == 0.0){
+				currentCamera->setSpeed(0.0, 0.0, -DELTA_TRAN);
+			}
+			else if (yrotation > 180 && yrotation <= 270 || (yrotation < -90 && yrotation >= -180)){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, DELTA_TRAN);
+			}
+			else if (yrotation > 270 || (yrotation < 0 && yrotation >= -90)){
+				currentCamera->setSpeed(-DELTA_TRAN, 0.0, -DELTA_TRAN);
+			}
+
+			currentCamera->getPosition()->add(currentCamera->getSpeed());
+			resize(windowWidth, windowHeight);
+			break;
+		case 'a':
+		case 'A':
+			currentCamera->setRotationSpeed(0.0, -DELTA_ROT, 0.0);
+			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
+			resize(windowWidth, windowHeight);
+			break;
+		
+		case 'd':
+		case 'D':
+			currentCamera->setRotationSpeed(0.0, DELTA_ROT, 0.0);
+			currentCamera->getRotation()->add(currentCamera->getRotationSpeed());
+			resize(windowWidth, windowHeight);
+			break;
 		case 'p':
 		case 'P':
 			setCurrentCamera("perspective");
@@ -82,11 +147,11 @@ void Scene::keyboard(unsigned char key, int x, int y)
 			setCurrentCamera("front");
 			resize(windowWidth, windowHeight);
 			break;
-		case 's':
-		case 'S':
-			setCurrentCamera("side");
-			resize(windowWidth, windowHeight);
-			break;
+		//case 's':
+		//case 'S':
+		//	setCurrentCamera("side");
+		//	resize(windowWidth, windowHeight);
+		//	break;
 		case 't':
 		case 'T':
 			setCurrentCamera("top");
